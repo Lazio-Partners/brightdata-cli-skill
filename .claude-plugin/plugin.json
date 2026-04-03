@@ -1,0 +1,7 @@
+{
+  "name": "brightdata-cli-skill",
+  "description": "Scrape, search, and extract structured web data via the Bright Data CLI",
+  "author": {
+    "name": "Brad Johnson"
+  }
+}
