@@ -43,13 +43,16 @@ These platforms require authenticated/specialized scrapers that Firecrawl cannot
 
 **Available via Bright Data dashboard/API only** (not yet in CLI pipelines):
 
-| Platform | Use For |
-|----------|---------|
-| **glassdoor.com** | Company reviews, salary data, job listings |
-| **indeed.com** | Job listings, company info |
-| **yelp.com** | Business reviews, ratings |
+| Platform | Scrapers | Use For |
+|----------|----------|---------|
+| **glassdoor.com** | 8 | Company reviews, salary data, job listings |
+| **indeed.com** | 7 | Job listings, company info |
+| **yelp.com** | 5 | Business reviews, ratings |
+| **news.google.com** | 1 | News articles, sources, categories |
+| **bbc.com** | 2 | News articles, videos |
+| **edition.cnn.com** | 3 | News articles, categories, authors |
 
-For dashboard-only scrapers, trigger them from the [Bright Data control panel](https://brightdata.com/cp/scrapers/browse).
+For dashboard-only scrapers, configure and trigger them from the [Bright Data control panel](https://brightdata.com/cp/scrapers/browse).
 
 ### Open Web — Use Firecrawl First
 
