@@ -1,6 +1,6 @@
 ---
 name: brightdata
-description: "Use when the user explicitly mentions Bright Data or BrightData, or when Firecrawl has failed to scrape a site and you need anti-bot bypass as a fallback. Also use for cheap LinkedIn data pulls (basic profiles, company info) when Apify's richer data isn't needed. This is a last-resort scraping tool — always try Firecrawl first, use Apify for rich LinkedIn data. Only fall back to Bright Data for its Web Unlocker (anti-bot bypass) or budget LinkedIn pipeline extractions."
+description: "Use when the user wants to scrape walled-garden platforms that block normal scrapers: LinkedIn, Instagram, TikTok, Facebook, X/Twitter, YouTube, Crunchbase, Glassdoor, Indeed, Yelp, Zillow, or news sites behind paywalls (Reuters, BBC, CNN, Google News). Also use when the user explicitly mentions Bright Data or BrightData, or when Firecrawl has failed on a specific site and you need anti-bot bypass as a fallback. For general open-web scraping, use Firecrawl first — Bright Data is the fallback. For rich LinkedIn data, prefer Apify over Bright Data."
 ---
 
 # Bright Data CLI
@@ -9,15 +9,39 @@ Scrape, search, and extract structured web data from the terminal using `brightd
 
 ## When to Use (and When Not To)
 
-Bright Data is a **last-resort** scraping tool, not the default. Follow this decision order:
+Bright Data is a **last-resort** scraping tool for general websites, but it is the **go-to tool for walled-garden platforms** that block normal scrapers entirely.
 
-1. **Firecrawl (self-hosted)** — Use first for all general scraping. Runs locally on ovhcloud (port 3002), no per-request cost.
-2. **Apify** — Use for rich LinkedIn data (detailed profiles, company info, enrichment).
-3. **Bright Data** — Use only when the above fail or don't fit:
-   - **Web Unlocker** (`brightdata scrape`) — when Firecrawl can't bypass anti-bot protections on a specific site
-   - **Cheap LinkedIn pulls** (`brightdata pipelines linkedin_*`) — when you need basic LinkedIn data quickly and don't need the richness Apify provides
+### Decision Order
 
-Do not default to Bright Data for scraping tasks. Always try Firecrawl first.
+1. **Firecrawl (self-hosted)** — Default for all general/open web scraping. Runs locally on ovhcloud (port 3002), no per-request cost.
+2. **Apify** — Use for rich LinkedIn data when you need detailed enrichment.
+3. **Bright Data** — Use in these cases:
+   - **Walled-garden platforms** (see table below) — Firecrawl can't access these at all
+   - **Web Unlocker** (`brightdata scrape`) — when Firecrawl fails on a specific site's anti-bot protections
+   - **Cheap LinkedIn pulls** (`brightdata pipelines linkedin_*`) — basic profile/company data when Apify's richness isn't needed
+
+### Walled-Garden Sites — Use Bright Data Pipelines
+
+These platforms require authenticated/specialized scrapers that Firecrawl cannot handle. Bright Data pipelines are the right tool here.
+
+| Platform | Pipeline Types | Use For |
+|----------|---------------|---------|
+| **linkedin.com** | `linkedin_person_profile`, `linkedin_company_profile`, `linkedin_job_listings`, `linkedin_posts`, `linkedin_people_search` | Basic profiles, company pages, job posts (use Apify for rich/enriched data) |
+| **instagram.com** | `instagram_profiles`, `instagram_posts`, `instagram_reels`, `instagram_comments` | Profiles, posts, engagement data |
+| **tiktok.com** | `tiktok_profiles`, `tiktok_posts`, `tiktok_shop`, `tiktok_comments` | Creator profiles, video data, shop listings |
+| **facebook.com** | `facebook_posts`, `facebook_marketplace_listings`, `facebook_company_reviews`, `facebook_events` | Marketplace, reviews, events, posts |
+| **x.com (Twitter)** | `x_posts` | Post data, engagement metrics |
+| **youtube.com** | `youtube_profiles`, `youtube_videos`, `youtube_comments` | Channel data, video metadata, comments |
+| **crunchbase.com** | `crunchbase_company` | Startup/company funding, investors, team |
+| **glassdoor.com** | Check `brightdata pipelines list` | Company reviews, salary data |
+| **indeed.com** | Check `brightdata pipelines list` | Job listings, company info |
+| **yelp.com** | Check `brightdata pipelines list` | Business reviews, ratings |
+| **zillow.com** | `zillow_properties_listing` | Property listings |
+| **news sites** (Reuters, BBC, CNN, Google News) | `reuter_news` + scrape for others | News articles behind paywalls |
+
+### Open Web — Use Firecrawl First
+
+For everything else (blogs, docs, company websites, public pages, e-commerce product pages on open sites), use Firecrawl. Only fall back to Bright Data's Web Unlocker if Firecrawl fails.
 
 ## Prerequisites
 
