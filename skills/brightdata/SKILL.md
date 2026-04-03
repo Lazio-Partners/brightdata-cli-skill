@@ -1,6 +1,6 @@
 ---
 name: brightdata
-description: "Use when the user wants to scrape walled-garden platforms that block normal scrapers: LinkedIn, Instagram, TikTok, Facebook, X/Twitter, YouTube, Crunchbase, Glassdoor, Indeed, Yelp, Zillow, or news sites behind paywalls (Reuters, BBC, CNN, Google News). Also use when the user explicitly mentions Bright Data or BrightData, or when Firecrawl has failed on a specific site and you need anti-bot bypass as a fallback. For general open-web scraping, use Firecrawl first — Bright Data is the fallback. For rich LinkedIn data, prefer Apify over Bright Data."
+description: "Use when the user wants to scrape walled-garden platforms that block normal scrapers: LinkedIn, Instagram, TikTok, Facebook, X/Twitter, YouTube, Reddit, Crunchbase, ZoomInfo, Glassdoor, Indeed, Yelp, Zillow, or Google Maps. Also use when the user explicitly mentions Bright Data or BrightData, or when Firecrawl has failed on a specific site and you need anti-bot bypass as a fallback. For general open-web scraping, use Firecrawl first — Bright Data is the fallback. For rich LinkedIn data, prefer Apify over Bright Data."
 ---
 
 # Bright Data CLI
@@ -20,9 +20,11 @@ Bright Data is a **last-resort** scraping tool for general websites, but it is t
    - **Web Unlocker** (`brightdata scrape`) — when Firecrawl fails on a specific site's anti-bot protections
    - **Cheap LinkedIn pulls** (`brightdata pipelines linkedin_*`) — basic profile/company data when Apify's richness isn't needed
 
-### Walled-Garden Sites — Use Bright Data Pipelines
+### Walled-Garden Sites — Use Bright Data
 
-These platforms require authenticated/specialized scrapers that Firecrawl cannot handle. Bright Data pipelines are the right tool here.
+These platforms require authenticated/specialized scrapers that Firecrawl cannot handle.
+
+**Available via CLI pipelines** (`brightdata pipelines <type>`):
 
 | Platform | Pipeline Types | Use For |
 |----------|---------------|---------|
@@ -32,12 +34,22 @@ These platforms require authenticated/specialized scrapers that Firecrawl cannot
 | **facebook.com** | `facebook_posts`, `facebook_marketplace_listings`, `facebook_company_reviews`, `facebook_events` | Marketplace, reviews, events, posts |
 | **x.com (Twitter)** | `x_posts` | Post data, engagement metrics |
 | **youtube.com** | `youtube_profiles`, `youtube_videos`, `youtube_comments` | Channel data, video metadata, comments |
+| **reddit.com** | `reddit_posts` | Post data, comments |
 | **crunchbase.com** | `crunchbase_company` | Startup/company funding, investors, team |
-| **glassdoor.com** | Check `brightdata pipelines list` | Company reviews, salary data |
-| **indeed.com** | Check `brightdata pipelines list` | Job listings, company info |
-| **yelp.com** | Check `brightdata pipelines list` | Business reviews, ratings |
+| **zoominfo.com** | `zoominfo_company_profile` | Company profiles, business data |
 | **zillow.com** | `zillow_properties_listing` | Property listings |
-| **news sites** (Reuters, BBC, CNN, Google News) | `reuter_news` + scrape for others | News articles behind paywalls |
+| **google Maps** | `google_maps_reviews` | Business reviews, ratings |
+| **reuters.com** | `reuter_news` | News articles |
+
+**Available via Bright Data dashboard/API only** (not yet in CLI pipelines):
+
+| Platform | Use For |
+|----------|---------|
+| **glassdoor.com** | Company reviews, salary data, job listings |
+| **indeed.com** | Job listings, company info |
+| **yelp.com** | Business reviews, ratings |
+
+For dashboard-only scrapers, trigger them from the [Bright Data control panel](https://brightdata.com/cp/scrapers/browse).
 
 ### Open Web — Use Firecrawl First
 
