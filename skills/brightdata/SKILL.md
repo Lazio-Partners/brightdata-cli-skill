@@ -1,11 +1,23 @@
 ---
 name: brightdata
-description: "Use when the user mentions Bright Data, BrightData, web scraping with anti-bot bypass, SERP API, structured data extraction from platforms (Amazon, LinkedIn, TikTok, Instagram, YouTube, etc.), scraping browser, proxy zones, or wants to scrape websites that block normal requests. Also use when the user asks to search Google/Bing/Yandex programmatically, extract product data, social media profiles, job listings, or control a remote browser session for automation. Even if the user just says 'scrape this page', 'search Google for X', 'get LinkedIn profile data', or 'extract Amazon reviews', this skill applies."
+description: "Use when the user explicitly mentions Bright Data or BrightData, or when Firecrawl has failed to scrape a site and you need anti-bot bypass as a fallback. Also use for cheap LinkedIn data pulls (basic profiles, company info) when Apify's richer data isn't needed. This is a last-resort scraping tool — always try Firecrawl first, use Apify for rich LinkedIn data. Only fall back to Bright Data for its Web Unlocker (anti-bot bypass) or budget LinkedIn pipeline extractions."
 ---
 
 # Bright Data CLI
 
 Scrape, search, and extract structured web data from the terminal using `brightdata` (alias: `bdata`). Handles CAPTCHAs, JavaScript rendering, anti-bot protections, and geo-targeting automatically.
+
+## When to Use (and When Not To)
+
+Bright Data is a **last-resort** scraping tool, not the default. Follow this decision order:
+
+1. **Firecrawl (self-hosted)** — Use first for all general scraping. Runs locally on ovhcloud (port 3002), no per-request cost.
+2. **Apify** — Use for rich LinkedIn data (detailed profiles, company info, enrichment).
+3. **Bright Data** — Use only when the above fail or don't fit:
+   - **Web Unlocker** (`brightdata scrape`) — when Firecrawl can't bypass anti-bot protections on a specific site
+   - **Cheap LinkedIn pulls** (`brightdata pipelines linkedin_*`) — when you need basic LinkedIn data quickly and don't need the richness Apify provides
+
+Do not default to Bright Data for scraping tasks. Always try Firecrawl first.
 
 ## Prerequisites
 
